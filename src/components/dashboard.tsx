@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { format, parseISO, startOfWeek, endOfWeek } from "date-fns";
+import { format, parseISO } from "date-fns";
 import {
   Bar,
   BarChart,

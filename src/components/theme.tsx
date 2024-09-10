@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Toggle } from "./ui/toggle";
 
 const DarkTheme = () => {
-  const [isDarkMode, setIsDarkMode] = useState<any>(null);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
