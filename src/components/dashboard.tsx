@@ -37,6 +37,7 @@ import {
   ZAxis,
 } from "recharts";
 import { TimesheetData } from "./data";
+import DarkTheme from "./theme";
 
 // Sample data (expanded for more variety)
 
@@ -119,9 +120,8 @@ export function Dashboard() {
   return (
     <div className="p-8 min-h-screen w-full">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-foreground">
-          Employee Time Dashboard
-        </h1>
+        <h1 className="text-4xl font-bold">Employee Time Dashboard</h1>
+        <DarkTheme />
       </div>
       <div className="flex flex-wrap gap-4 mb-8 items-center">
         <Popover>
@@ -187,106 +187,112 @@ export function Dashboard() {
         )}
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-        <Card className="bg-gradient-to-br from-blue-100 to-blue-200 shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-blue-300 border-opacity-50">
-            <CardTitle className="text-sm font-medium text-blue-800">
+        <Card className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-400 dark:to-black-700 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-blue-300 dark:border-blue-700 border-opacity-50">
+            <CardTitle className="text-sm font-medium text-blue-800 dark:text-blue-100">
               Total Hours Logged
             </CardTitle>
-            <ClockIcon className="h-4 w-4 text-blue-600" />
+            <ClockIcon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="text-3xl font-bold text-blue-900">
+            <div className="text-3xl font-bold text-blue-900 dark:text-blue-200">
               {totalHoursLogged} hours
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-green-100 to-green-200 shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-green-300 border-opacity-50">
-            <CardTitle className="text-sm font-medium text-green-800">
+
+        <Card className="bg-gradient-to-br from-green-100 to-green-200 dark:from-green-500 dark:to-gray-700 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-green-300 dark:border-green-700 border-opacity-50">
+            <CardTitle className="text-sm font-medium text-green-800 dark:text-green-100">
               Total Time Off
             </CardTitle>
-            <PalmtreeIcon className="h-4 w-4 text-green-600" />
+            <PalmtreeIcon className="h-4 w-4 text-green-600 dark:text-green-400" />
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="text-3xl font-bold text-green-900">
+            <div className="text-3xl font-bold text-green-900 dark:text-green-200">
               {totalTimeOff} hours
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-purple-100 to-purple-200 shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-purple-300 border-opacity-50">
-            <CardTitle className="text-sm font-medium text-purple-800">
+
+        <Card className="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-500 dark:to-black-700 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-purple-300 dark:border-purple-600 border-opacity-50">
+            <CardTitle className="text-sm font-medium text-purple-800 dark:text-purple-100">
               Avg Hours/Week
             </CardTitle>
-            <TrendingUpIcon className="h-4 w-4 text-purple-600" />
+            <TrendingUpIcon className="h-4 w-4 text-purple-600 dark:text-purple-300" />
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="text-3xl font-bold text-purple-900">
+            <div className="text-3xl font-bold text-purple-900 dark:text-purple-200">
               {averageHoursPerWeek.toFixed(1)} hours
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-orange-100 to-orange-200 shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-orange-300 border-opacity-50">
-            <CardTitle className="text-sm font-medium text-orange-800">
+
+        <Card className="bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-500 dark:to-grey-100 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-orange-300 dark:border-orange-600 border-opacity-50">
+            <CardTitle className="text-sm font-medium text-orange-800 dark:text-orange-100">
               Employees
             </CardTitle>
-            <Users className="h-4 w-4 text-orange-600" />
+            <Users className="h-4 w-4 text-orange-600 dark:text-orange-300" />
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="text-3xl font-bold text-orange-900">
+            <div className="text-3xl font-bold text-orange-900 dark:text-orange-200">
               {uniqueNames.length}
             </div>
           </CardContent>
         </Card>
       </div>
       <div className="grid gap-6 md:grid-cols-2 mb-8">
-        <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100">
-            <CardTitle className="text-lg font-semibold text-gray-700">
+        {/* Hours Logged Over Time Card */}
+        <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900 dark:to-grey-600">
+            <CardTitle className="text-lg font-semibold text-gray-700 dark:text-gray-200">
               Hours Logged Over Time
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={filteredData}>
-                <XAxis dataKey="weekStartDate" />
-                <YAxis />
+                <XAxis dataKey="weekStartDate" stroke={"#4b5563"} />
+                <YAxis stroke={"#4b5563"} />
                 <Tooltip />
                 <Legend />
                 <Line
                   type="monotone"
                   dataKey="hoursLogged"
-                  stroke="#3b82f6"
+                  stroke={"#3b82f6"}
                   name="Hours Logged"
                 />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
-        <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-green-50 to-green-100">
-            <CardTitle className="text-lg font-semibold text-gray-700">
+
+        {/* Hours Logged vs Time Off Card */}
+        <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900 dark:to-grey-900">
+            <CardTitle className="text-lg font-semibold text-gray-700 dark:text-gray-200">
               Hours Logged vs Time Off
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={filteredData}>
-                <XAxis dataKey="weekStartDate" />
-                <YAxis />
+                <XAxis dataKey="weekStartDate" stroke={"#4b5563"} />
+                <YAxis stroke={"#4b5563"} />
                 <Tooltip />
                 <Legend />
                 <Bar
                   dataKey="hoursLogged"
                   stackId="a"
-                  fill="#3b82f6"
+                  fill={"#3b82f6"}
                   name="Hours Logged"
                 />
                 <Bar
                   dataKey="timeOff"
                   stackId="a"
-                  fill="#22c55e"
+                  fill={"#22c55e"}
                   name="Time Off"
                 />
               </BarChart>
@@ -294,10 +300,12 @@ export function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
-        <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-purple-100">
-            <CardTitle className="text-lg font-semibold text-gray-700">
+        {/* Project Time Distribution Card */}
+        <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-700 dark:to-purple-800">
+            <CardTitle className="text-lg font-semibold text-gray-700 dark:text-gray-200">
               Project Time Distribution
             </CardTitle>
           </CardHeader>
@@ -310,7 +318,7 @@ export function Dashboard() {
                   cy="50%"
                   labelLine={false}
                   outerRadius={80}
-                  fill="#8884d8"
+                  fill={"#8884d8"}
                   dataKey="value"
                   label={({ name, percent }) =>
                     `${name} ${(percent * 100).toFixed(0)}%`
@@ -328,23 +336,25 @@ export function Dashboard() {
             </ResponsiveContainer>
           </CardContent>
         </Card>
-        <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-yellow-50 to-yellow-100">
-            <CardTitle className="text-lg font-semibold text-gray-700">
+
+        {/* Weekly Activity Heatmap Card */}
+        <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-yellow-50 to-yellow-100 dark:from-yellow-700 dark:to-yellow-800">
+            <CardTitle className="text-lg font-semibold text-gray-700 dark:text-gray-200">
               Weekly Activity Heatmap
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={heatmapData} layout="vertical">
-                <XAxis type="number" />
-                <YAxis dataKey="week" type="category" />
+                <XAxis type="number" stroke={"#4b5563"} />
+                <YAxis dataKey="week" type="category" stroke={"#4b5563"} />
                 <Tooltip />
                 <Bar dataKey="hours" fill="#3b82f6">
                   {heatmapData.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
-                      fill={`rgb(59, 130, 246, ${entry.hours / 50})`}
+                      fill={`rgba(59, 130, 246, ${entry.hours / 50})`}
                     />
                   ))}
                 </Bar>
@@ -352,20 +362,26 @@ export function Dashboard() {
             </ResponsiveContainer>
           </CardContent>
         </Card>
-        <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-pink-50 to-pink-100">
-            <CardTitle className="text-lg font-semibold text-gray-700">
+
+        {/* Hours Logged vs Time Off Correlation Card */}
+        <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-pink-50 to-pink-100 dark:from-pink-700 dark:to-pink-800">
+            <CardTitle className="text-lg font-semibold text-gray-700 dark:text-gray-200">
               Hours Logged vs Time Off Correlation
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <ResponsiveContainer width="100%" height={300}>
               <ScatterChart>
-                <XAxis dataKey="hoursLogged" name="Hours Logged" />
-                <YAxis dataKey="timeOff" name="Time Off" />
+                <XAxis
+                  dataKey="hoursLogged"
+                  name="Hours Logged"
+                  stroke={"#4b5563"}
+                />
+                <YAxis dataKey="timeOff" name="Time Off" stroke={"#4b5563"} />
                 <ZAxis dataKey="name" name="Employee" />
                 <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                <Scatter data={filteredData} fill="#3b82f6" />
+                <Scatter data={filteredData} fill={"#3b82f6"} />
               </ScatterChart>
             </ResponsiveContainer>
           </CardContent>
