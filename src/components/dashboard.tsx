@@ -41,18 +41,21 @@ import { TimesheetData } from "./data";
 // Sample data (expanded for more variety)
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
+type DateRange = { from?: Date; to?: Date }; // Assuming this is the correct type from your component library
 
 export function Dashboard() {
   const [data] = useState(TimesheetData);
 
   const today = new Date();
   const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+
   const [dateRange, setDateRange] = useState<
     { from: Date; to: Date } | undefined
   >({
     from: lastMonth,
     to: today,
   });
+
   const [selectedPerson, setSelectedPerson] = useState<string>("all");
 
   const filteredData = useMemo(() => {
@@ -65,7 +68,7 @@ export function Dashboard() {
         selectedPerson === "all" || item.name === selectedPerson;
       return isInDateRange && isSelectedPerson;
     });
-  }, [dateRange, selectedPerson]);
+  }, [dateRange, selectedPerson, data]);
 
   const totalHoursLogged = filteredData.reduce(
     (sum, item) => sum + item.hoursLogged,
@@ -105,7 +108,14 @@ export function Dashboard() {
   };
 
   const isFiltered = dateRange !== undefined || selectedPerson !== "all";
-
+  const handleSelectRange = (range: DateRange | undefined) => {
+    if (range?.from && range?.to) {
+      // Convert to the correct type for setDateRange
+      setDateRange({ from: range.from, to: range.to });
+    } else {
+      setDateRange(undefined);
+    }
+  };
   return (
     <div className="p-8 min-h-screen w-full">
       <div className="flex justify-between items-center mb-8">
@@ -144,7 +154,7 @@ export function Dashboard() {
               mode="range"
               defaultMonth={dateRange?.from}
               selected={dateRange}
-              onSelect={setDateRange}
+              onSelect={handleSelectRange}
               numberOfMonths={2}
               today={new Date()}
             />
