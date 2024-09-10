@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, SetStateAction } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
@@ -109,23 +109,10 @@ export function Dashboard() {
   };
 
   const isFiltered = dateRange !== undefined || selectedPerson !== "all";
-  const handleSelectRange = (range: DateRange | undefined) => {
-    console.log(range);
 
-    if (range?.from) {
-      if (range.to) {
-        // If both `from` and `to` are defined, set the full date range
-        setDateRange({ from: range.from, to: range.to });
-      } else {
-        // If only `from` is defined, store it and set `to` as undefined
-        setDateRange(undefined);
-      }
-    } else {
-      // If `from` is not defined, clear the range
-      setDateRange(undefined);
-    }
+  const handleSelectRange = (range: any) => {
+    setDateRange(range);
   };
-  console.log(dateRange);
 
   return (
     <div className="p-8 min-h-screen w-full">
@@ -166,7 +153,8 @@ export function Dashboard() {
               selected={dateRange}
               onSelect={handleSelectRange}
               numberOfMonths={2}
-              today={new Date()}
+
+              // today={new Date()}
             />
           </PopoverContent>
         </Popover>
