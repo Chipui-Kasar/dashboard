@@ -110,13 +110,23 @@ export function Dashboard() {
 
   const isFiltered = dateRange !== undefined || selectedPerson !== "all";
   const handleSelectRange = (range: DateRange | undefined) => {
-    if (range?.from && range?.to) {
-      // Convert to the correct type for setDateRange
-      setDateRange({ from: range.from, to: range.to });
+    console.log(range);
+
+    if (range?.from) {
+      if (range.to) {
+        // If both `from` and `to` are defined, set the full date range
+        setDateRange({ from: range.from, to: range.to });
+      } else {
+        // If only `from` is defined, store it and set `to` as undefined
+        setDateRange(undefined);
+      }
     } else {
+      // If `from` is not defined, clear the range
       setDateRange(undefined);
     }
   };
+  console.log(dateRange);
+
   return (
     <div className="p-8 min-h-screen w-full">
       <div className="flex justify-between items-center mb-8">
