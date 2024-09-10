@@ -47,7 +47,9 @@ export function Dashboard() {
 
   const today = new Date();
   const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-  const [dateRange, setDateRange] = useState<{ from: Date; to: Date } | any>({
+  const [dateRange, setDateRange] = useState<
+    { from: Date; to: Date } | undefined
+  >({
     from: lastMonth,
     to: today,
   });
