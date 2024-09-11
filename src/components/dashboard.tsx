@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, SetStateAction } from "react";
+import { useState, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
@@ -42,17 +42,16 @@ import DarkTheme from "./theme";
 // Sample data (expanded for more variety)
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
-type DateRange = { from?: Date; to?: Date }; // Assuming this is the correct type from your component library
-
+type DateRange = {
+  from: Date | undefined;
+  to?: Date | undefined;
+};
 export function Dashboard() {
   const [data] = useState(TimesheetData);
 
   const today = new Date();
   const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-
-  const [dateRange, setDateRange] = useState<
-    { from: Date; to: Date } | undefined
-  >({
+  const [dateRange, setDateRange] = useState<DateRange>({
     from: lastMonth,
     to: today,
   });
@@ -62,9 +61,11 @@ export function Dashboard() {
   const filteredData = useMemo(() => {
     return data.filter((item) => {
       const itemDate = parseISO(item.weekStartDate);
-      const isInDateRange = dateRange
-        ? itemDate >= dateRange.from && itemDate <= dateRange.to
-        : true;
+      const isInDateRange =
+        dateRange.from === undefined
+          ? true
+          : dateRange.from <= itemDate &&
+            (dateRange.to === undefined || itemDate <= dateRange.to);
       const isSelectedPerson =
         selectedPerson === "all" || item.name === selectedPerson;
       return isInDateRange && isSelectedPerson;
@@ -104,14 +105,17 @@ export function Dashboard() {
   }, [filteredData]);
 
   const clearFilters = () => {
-    setDateRange(undefined);
+    setDateRange({ from: undefined, to: undefined });
     setSelectedPerson("all");
   };
 
   const isFiltered = dateRange !== undefined || selectedPerson !== "all";
 
-  const handleSelectRange = (range: any) => {
-    setDateRange(range);
+  const handleSelectRange = (range: DateRange | undefined) => {
+    setDateRange({
+      from: range?.from,
+      to: range?.to ?? range?.from,
+    });
   };
 
   return (
@@ -153,8 +157,6 @@ export function Dashboard() {
               selected={dateRange}
               onSelect={handleSelectRange}
               numberOfMonths={2}
-
-              // today={new Date()}
             />
           </PopoverContent>
         </Popover>
@@ -222,7 +224,10 @@ export function Dashboard() {
           </CardHeader>
           <CardContent className="pt-4">
             <div className="text-3xl font-bold text-purple-900 dark:text-purple-200">
-              {averageHoursPerWeek.toFixed(1)} hours
+              {isFinite(averageHoursPerWeek)
+                ? averageHoursPerWeek.toFixed(1)
+                : "0"}{" "}
+              hours
             </div>
           </CardContent>
         </Card>
