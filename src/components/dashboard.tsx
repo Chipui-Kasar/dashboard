@@ -125,7 +125,7 @@ export function Dashboard() {
     setSelectedPerson("all");
   };
 
-  const isFiltered = dateRange !== undefined || selectedPerson !== "all";
+  const isFiltered = dateRange.from !== undefined || selectedPerson !== "all";
 
   const handleSelectRange = (range: DateRange | undefined) => {
     setDateRange({
