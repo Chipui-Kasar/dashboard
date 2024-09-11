@@ -80,7 +80,19 @@ export function Dashboard() {
     (sum, item) => sum + item.timeOff,
     0
   );
-  const averageHoursPerWeek = totalHoursLogged / (filteredData.length / 2);
+  // Function to calculate the number of unique weeks
+  const getNumberOfWeeks = (data: any[]) => {
+    // Create a set of unique week start dates
+    const uniqueWeekStartDates = new Set(
+      data.map((entry: { weekStartDate: string }) => entry.weekStartDate)
+    );
+
+    // Return the number of unique weeks
+    return uniqueWeekStartDates.size;
+  };
+  const noOfWeeksFromFilteredData = getNumberOfWeeks(filteredData);
+
+  const averageHoursPerWeek = totalHoursLogged / noOfWeeksFromFilteredData;
 
   const uniqueNames = Array.from(
     new Set(
