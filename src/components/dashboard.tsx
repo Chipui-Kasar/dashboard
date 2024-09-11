@@ -36,7 +36,7 @@ import {
   ScatterChart,
   ZAxis,
 } from "recharts";
-import { TimesheetData } from "./data";
+import { TimesheetData, TimesheetEntry } from "./data";
 import DarkTheme from "./theme";
 
 // Sample data (expanded for more variety)
@@ -81,7 +81,7 @@ export function Dashboard() {
     0
   );
   // Function to calculate the number of unique weeks
-  const getNumberOfWeeks = (data: any[]) => {
+  const getNumberOfWeeks = (data: TimesheetEntry[]) => {
     // Create a set of unique week start dates
     const uniqueWeekStartDates = new Set(
       data.map((entry: { weekStartDate: string }) => entry.weekStartDate)

@@ -1,3 +1,10 @@
+export interface TimesheetEntry {
+  weekStartDate: string;
+  hoursLogged: number;
+  timeOff: number;
+  name: string;
+  project: string;
+}
 export const TimesheetData = [
   // July 2024
   {
