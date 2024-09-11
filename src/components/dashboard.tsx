@@ -82,7 +82,23 @@ export function Dashboard() {
   );
   const averageHoursPerWeek = totalHoursLogged / (filteredData.length / 2);
 
-  const uniqueNames = Array.from(new Set(data.map((item) => item.name)));
+  const uniqueNames = Array.from(
+    new Set(
+      data
+        .filter((item) => {
+          const itemDate = parseISO(item.weekStartDate);
+          const isInDateRange =
+            dateRange.from === undefined
+              ? true
+              : dateRange.from <= itemDate &&
+                (dateRange.to === undefined || itemDate <= dateRange.to);
+          const isSelectedPerson =
+            selectedPerson === "all" || item.name === selectedPerson;
+          return isInDateRange && isSelectedPerson;
+        })
+        .map((item) => item.name)
+    )
+  );
 
   const pieChartData = useMemo(() => {
     const projectHours = filteredData.reduce((acc, item) => {
