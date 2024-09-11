@@ -99,6 +99,7 @@ export function Dashboard() {
         .map((item) => item.name)
     )
   );
+  const uniqueNamesList = Array.from(new Set(data.map((item) => item.name)));
 
   const pieChartData = useMemo(() => {
     const projectHours = filteredData.reduce((acc, item) => {
@@ -184,7 +185,7 @@ export function Dashboard() {
             <SelectItem value="all" className="text-gray-700">
               All Employees
             </SelectItem>
-            {uniqueNames.map((name) => (
+            {uniqueNamesList.map((name) => (
               <SelectItem key={name} value={name}>
                 {name}
               </SelectItem>
